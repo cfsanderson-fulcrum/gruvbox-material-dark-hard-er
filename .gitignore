@@ -72,9 +72,6 @@ jspm_packages/
 tmp/
 temp/
 
-# Generated icon
-icon.png
-
 # Test web extension
 .vscode-test-web
 
