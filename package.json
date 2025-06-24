@@ -1,0 +1,55 @@
+{
+  "name": "gruvbox-material-dark-hard-er",
+  "displayName": "Gruvbox Material Dark Hard-er",
+  "description": "A simplified dark theme with harder contrast using Gruvbox Material palette",
+  "author": "sainnhe (https://github.com/sainnhe)",
+  "publisher": "cfsanderson",
+  "version": "6.5.2",
+  "homepage": "https://github.com/cfsanderson/gruvbox-material-dark-hard-er",
+  "bugs": {
+    "url": "https://github.com/cfsanderson/gruvbox-material-dark-hard-er/issues"
+  },
+  "icon": "icon.png",
+  "license": "MIT",
+  "keywords": [
+    "gruvbox",
+    "theme"
+  ],
+  "categories": [
+    "Themes"
+  ],
+  "galleryBanner": {
+    "color": "#32302f",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cfsanderson/gruvbox-material-dark-hard-er.git"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Gruvbox Material Dark Hard-er",
+        "uiTheme": "vs-dark",
+        "path": "./themes/gruvbox-material-dark-hard-er.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "clean": "rimraf *.vsix themes/gruvbox-material-dark-hard-er.json",
+    "build:theme": "tsc src/generateSimplifiedTheme.ts --outDir dist --target es2020 --module commonjs --moduleResolution node --esModuleInterop && node dist/generateSimplifiedTheme.js",
+    "build": "npm run clean && npm run build:theme",
+    "package": "vsce package"
+  },
+  "engines": {
+    "vscode": "^1.55.0",
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.1",
+    "@vscode/vsce": "^3.5.0",
+    "rimraf": "3.0.2",
+    "typescript": "4.9.4"
+  }
+}

@@ -1,0 +1,35 @@
+# Ignore development files
+node_modules/
+src/
+dist/
+*.ts
+tsconfig.json
+.gitignore
+.git/
+.husky/
+.github/
+.eslintrc.js
+.eslintignore
+.vscode-test-web/
+.tool-versions
+
+# Ignore build artifacts
+*.vsix
+
+# Ignore documentation
+CONTRIBUTING.md
+CHANGELOG.md
+
+# Ignore npm files
+package-lock.json
+.npm/
+
+# Ignore IDE files
+.vscode/
+*.swp
+*.swo
+.DS_Store
+.flag
+
+# Ignore icon source
+icon.svg
