@@ -4,6 +4,8 @@ A simplified VS Code theme based on [Gruvbox Material](https://github.com/sainnh
 
 > Gruvbox Material is a modified version of [Gruvbox](https://github.com/morhetz/gruvbox), with adjusted contrast to be softer and more comfortable for extended coding sessions.
 
+![Theme Preview](example.png)
+
 ## Features
 
 - **Single Theme**: Only the Material Dark Hard variant - no configuration needed
