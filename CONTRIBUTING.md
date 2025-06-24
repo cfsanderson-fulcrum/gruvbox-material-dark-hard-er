@@ -1,3 +1,9 @@
+# Contributing
+
+Thanks for contributing to this project!
+
+> **Note**: This is a simplified fork of the original [Gruvbox Material](https://github.com/sainnhe/gruvbox-material-vscode) theme by [sainnhe](https://github.com/sainnhe). This version provides only the Material Dark Hard variant with slightly higher contrast.
+
 ## Requirements
 
 Make sure you have the following programs installed:
@@ -7,93 +13,63 @@ Make sure you have the following programs installed:
 
 ## Start
 
-First of all, let's try to package this extension and install it to your vscode.
+First, clone and set up the project:
 
 ```shell
-$ git clone --depth 1 https://github.com/sainnhe/gruvbox-material-vscode.git
-$ cd gruvbox-material-vscode
-$ npm ci
+$ git clone https://github.com/cfsanderson-fulcrum/gruvbox-material-dark-hard-er.git
+$ cd gruvbox-material-dark-hard-er
+$ npm install
+$ npm run build
 $ npm run package
-$ code --install-extension ./gruvbox-material-*.vsix
+$ code --install-extension ./gruvbox-material-dark-hard-er-*.vsix
 ```
 
-Now, use vscode to open this project and modify some code, then press `F5` to start debugging.
+Now, use VS Code to open this project and modify the code, then press `F5` to start debugging.
 
-## The theme files
+## The theme file
 
-The most critical files for a theme extension are some json files located in [/themes](https://github.com/sainnhe/gruvbox-material-vscode/tree/v6.2.1/themes), they defined all the colors of a theme.
+This simplified theme consists of a single JSON file located in `/themes/gruvbox-material-dark-hard-er.json` that defines all the colors.
 
-A theme file can be roughly divided into three parts:
+The theme file is automatically generated from TypeScript source code in `/src/generateSimplifiedTheme.ts`. To modify the theme:
 
-- [workbench colors](https://github.com/sainnhe/gruvbox-material-vscode/blob/v6.2.1/themes/gruvbox-material-dark.json#L25-L332): The UI of vscode.
-- [syntax highlighting](https://github.com/sainnhe/gruvbox-material-vscode/blob/v6.2.1/themes/gruvbox-material-dark.json#L333-L2117): The syntax highlighting.
-- [semantic highlighting](https://github.com/sainnhe/gruvbox-material-vscode/blob/v6.2.1/themes/gruvbox-material-dark.json#L5-L24): This is a new feature since vscode 1.43, see [Semantic Highlighting Overview](https://github.com/microsoft/vscode/wiki/Semantic-Highlighting-Overview). This feature is experimental, currently supports js, ts, java and C family.
+1. Edit the TypeScript source file
+2. Run `npm run build:theme` to regenerate the JSON file
+3. Test your changes
+
+The theme file contains:
+- **Workbench colors**: The VS Code UI elements
+- **Syntax highlighting**: Code syntax coloring
+- **Semantic highlighting**: Advanced token-based highlighting
 
 For all available workbench colors, see [this documentation](https://code.visualstudio.com/api/references/theme-color).
 
-To get current token of syntax highlighting or semantic highlighting, press `Ctrl+Shift+P` to open command panel and search for "Inspect Editor Tokens and Scopes".
+To inspect current token scopes for syntax highlighting, press `Ctrl+Shift+P` and search for "Inspect Editor Tokens and Scopes".
 
-In this extension, the json files will be automatically generated when user configuration changes, so don't keep your changes in the json files, but modify the typescript code instead.
+## Building and Testing
 
-## Publishing
+To build and test the theme locally:
 
-I set up a github action for this repository that can publish this extension to vscode marketplace and open vsx registry automatically when a new tag is created. For example, to release `v6.2.10`, do something like this:
+```bash
+# Install dependencies
+npm install
 
-1. Edit `package.json`, modify the `version` field: `"version": "6.2.10",`
-2. Update `package-lock.json`: `$ npm install`
-3. Commit this change: `$ git commit -am "release v6.2.10"`
-4. Create a tag: `$ git tag -a v6.2.10` and edit the tag message based on CHANGELOG.md
+# Build the theme
+npm run build
 
+# Package for installation
+npm run package
+
+# Install the packaged extension
+code --install-extension ./gruvbox-material-dark-hard-er-*.vsix
 ```
-v6.2.10
 
-- Publish to open vsx registry.
-- Setup a pre-commit hook that can regenerate the theme file using default settings.
-```
+## Attribution
 
-4. Push the commit and tag to github: `$ git push origin master v6.2.10`
+This project is based on the excellent work of [sainnhe](https://github.com/sainnhe) and the original [Gruvbox Material VS Code theme](https://github.com/sainnhe/gruvbox-material-vscode). The color palette and design principles remain faithful to the original Gruvbox Material theme.
 
-### Versioning
+## Guidelines
 
-This color scheme doesn't follow the semantic versioning convention, because there are almost no "bugs" in a color scheme. Everything is regarded as a feature.
-
-Given a `MAJOR.MINOR.PATCH`, increment the:
-
-1. `MAJOR` version when you make breaking changes (often with changes to design),
-2. `MINOR` version when you change configuration options, and
-3. `PATCH` version when you add small features (with no configuration changes).
-
-## Some designs
-
-There are 3 workbench styles available in this theme:
-
-- material: inspired by [material-theme/vsc-material-theme](https://github.com/material-theme/vsc-material-theme)
-- flat: inspired by [Binaryify/OneDark-Pro](https://github.com/Binaryify/OneDark-Pro)
-- high contrast: inspired by [Monokai Pro](https://monokai.pro/vscode)
-
-It's highly recommended to try them first if you want to modify the code of a workbench style.
-
-When you are modifying a workbench style, remember a principle:
-
-> Don't make elements too colorful, because this will easily distract you from the code.
-
-You may notice that I used many grey colors in workbench styles, it's exactly because of this, colorless elements will help you focus more on the code.
-
-In addition, this theme is designed to be borderless, so DO NOT add unnecessary borders.
-
-There are 2 syntax highlighting logic available in this theme: default and colorful
-
-In the default syntax highlighting logic, only minimum but necessary tokens will be colored.
-
-Unnecessary tokens include: variables, properties, members, parameters, etc.
-
-In contrast, in the colorful syntax highlighting logic, as many tokens as possible will be colored.
-
-## Note
-
-- I set up 2 pre-commit hooks, one of which is used to generate `/themes/*.json` automatically using default user settings. So when developing this extension, don't care about how the themes files looks like, but just focus on the typescript code.
-- DO NOT add new colors or modify existing colors in [/src/palette](https://github.com/sainnhe/gruvbox-material-vscode/tree/master/src/palette). The current color palettes are very carefully designed and tested on several devices. If you do want to change the color palettes, create a new theme extension instead.
-- Don't add new configuration options casually, there are already so many configuration options and too many options may confuse users.
-- Don't forget to update the changelog.
-- Don't forget to update [italic syntax file](https://github.com/sainnhe/gruvbox-material-vscode/blob/master/src/syntax/italic.ts) if the syntax source code is modified.
-- Comments including `{{{` or `}}}` are vim fold markers, I use them to fold the code in vim, so don't delete them.
+- Keep the theme focused on the single "Material Dark Hard" variant
+- Maintain consistency with the original Gruvbox Material color palette
+- Test changes across different file types and languages
+- Update the changelog when making changes
